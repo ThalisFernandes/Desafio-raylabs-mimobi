@@ -1,14 +1,17 @@
 import { prisma } from '../config/database';
-import { CreateOrderDTO, Order, OrderStatus } from '../types';
+import { CreateOrderDTO, Order, OrderStatus, OrderCreatedEvent } from '../types';
 import { NotFoundError, ValidationError } from '../utils/errors';
 import { logInfo, logError } from '../config/logger';
 import { ProductService } from './productService';
+import { MessagingService } from './messagingService';
 
 export class OrderService {
   private productService: ProductService;
+  private messagingService: MessagingService;
 
   constructor() {
     this.productService = new ProductService();
+    this.messagingService = new MessagingService();
   }
 
   // criar novo pedido
@@ -68,6 +71,22 @@ export class OrderService {
       }
 
       logInfo('Pedido criado com sucesso', { orderId: order.id, totalAmount });
+
+      // publica evento de pedido criado para processamento assincrono
+      const orderEvent: OrderCreatedEvent = {
+        orderId: order.id,
+        customerId: order.customerId,
+        totalAmount: order.totalAmount,
+        items: order.items.map(item => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          unitPrice: item.product.price
+        })),
+        createdAt: order.createdAt
+      };
+
+      await this.messagingService.publishOrderCreated(orderEvent);
+      
       return order;
     } catch (error) {
       logError('Erro ao criar pedido', error);
