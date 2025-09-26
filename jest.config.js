@@ -1,7 +1,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/src', '<rootDir>/tests'],
   testMatch: [
     '**/__tests__/**/*.ts',
     '**/?(*.)+(spec|test).ts'
@@ -12,8 +12,8 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',
-    '!src/index.ts',
-    '!src/config/**',
+    '!src/server.ts',
+    '!src/workers/index.ts'
   ],
   coverageDirectory: 'coverage',
   coverageReporters: [
@@ -21,7 +21,12 @@ module.exports = {
     'lcov',
     'html'
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  testTimeout: 30000,
+  // configuracao para testes de integracao
+  globalSetup: '<rootDir>/tests/globalSetup.ts',
+  globalTeardown: '<rootDir>/tests/globalTeardown.ts',
+  // mock de modulos externos
   moduleNameMapping: {
     '^@/(.*)$': '<rootDir>/src/$1'
   }
