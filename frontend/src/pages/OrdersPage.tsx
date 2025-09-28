@@ -148,13 +148,13 @@ const OrdersPage: React.FC = () => {
               >
                 <MenuItem value="">Todos os Status</MenuItem>
                 <MenuItem value="PENDING_PAYMENT">
-                  Aguardando Pagamento ({getStatusCount('PENDING_PAYMENT')})
+                  Aguardando Pagamento ({getStatusCount(OrderStatus.PENDING_PAYMENT)})
                 </MenuItem>
                 <MenuItem value="CONFIRMED">
-                  Confirmados ({getStatusCount('CONFIRMED')})
+                  Confirmados ({getStatusCount(OrderStatus.CONFIRMED)})
                 </MenuItem>
                 <MenuItem value="CANCELLED">
-                  Cancelados ({getStatusCount('CANCELLED')})
+                  Cancelados ({getStatusCount(OrderStatus.CANCELLED)})
                 </MenuItem>
               </Select>
             </FormControl>
