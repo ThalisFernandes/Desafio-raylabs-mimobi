@@ -194,17 +194,17 @@ const OrdersPage: React.FC = () => {
             variant="outlined"
           />
           <Chip
-            label={`Aguardando: ${getStatusCount('PENDING_PAYMENT')}`}
+            label={`Aguardando: ${getStatusCount(OrderStatus.PENDING_PAYMENT)}`}
             color="warning"
             variant="outlined"
           />
           <Chip
-            label={`Confirmados: ${getStatusCount('CONFIRMED')}`}
+            label={`Confirmados: ${getStatusCount(OrderStatus.CONFIRMED)}`}
             color="success"
             variant="outlined"
           />
           <Chip
-            label={`Cancelados: ${getStatusCount('CANCELLED')}`}
+            label={`Cancelados: ${getStatusCount(OrderStatus.CANCELLED)}`}
             color="error"
             variant="outlined"
           />
