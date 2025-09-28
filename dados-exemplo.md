@@ -2,9 +2,33 @@
 
 Este arquivo contém dados de exemplo e comandos CURL para popular a API do e-commerce com produtos, clientes e pedidos.
 
+## 🔐 Autenticação
+
+**IMPORTANTE**: A partir de agora, todas as rotas da API (exceto `/health`) requerem autenticação via Bearer token.
+
+### Configuração da API Key
+
+1. **Configure a variável de ambiente** no arquivo `.env`:
+```bash
+API_KEY=minha_api_key_super_secreta_123
+```
+
+2. **Inclua o header Authorization** em todas as requisições:
+```bash
+Authorization: Bearer minha_api_key_super_secreta_123
+```
+
+### Exemplo de Requisição Autenticada
+
+```bash
+curl -X GET http://localhost:3001/api/v1/products \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
+```
+
 ## 🏥 Health Check
 
 ```bash
+# Health check (sem autenticacao)
 curl -X GET http://localhost:3001/api/v1/health
 ```
 
@@ -16,6 +40,7 @@ curl -X GET http://localhost:3001/api/v1/health
 # Produto 1 - Smartphone
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "iPhone 15 Pro",
     "price": 8999.99,
@@ -27,6 +52,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 2 - Notebook
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "MacBook Air M2",
     "price": 12999.99,
@@ -38,6 +64,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 3 - Fone de Ouvido
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "AirPods Pro 2",
     "price": 2499.99,
@@ -49,6 +76,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 4 - Camiseta
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Camiseta Nike Dri-FIT",
     "price": 89.99,
@@ -60,6 +88,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 5 - Tênis
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Tênis Adidas Ultraboost",
     "price": 799.99,
@@ -71,6 +100,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 6 - Livro
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Clean Code - Robert Martin",
     "price": 79.90,
@@ -82,6 +112,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 7 - Mouse
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Mouse Logitech MX Master 3",
     "price": 549.99,
@@ -93,6 +124,7 @@ curl -X POST http://localhost:3001/api/v1/products \
 # Produto 8 - Teclado
 curl -X POST http://localhost:3001/api/v1/products \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Teclado Mecânico Keychron K2",
     "price": 899.99,
@@ -106,13 +138,16 @@ curl -X POST http://localhost:3001/api/v1/products \
 
 ```bash
 # Listar todos os produtos (paginado)
-curl -X GET "http://localhost:3001/api/v1/products?page=1&limit=10"
+curl -X GET "http://localhost:3001/api/v1/products?page=1&limit=10" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar produto por ID (substitua {id} pelo ID real)
-curl -X GET http://localhost:3001/api/v1/products/{id}
+curl -X GET http://localhost:3001/api/v1/products/{id} \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Verificar estoque de um produto
-curl -X GET http://localhost:3001/api/v1/products/{id}/stock
+curl -X GET http://localhost:3001/api/v1/products/{id}/stock \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 ```
 
 ## 👥 Clientes
@@ -123,6 +158,7 @@ curl -X GET http://localhost:3001/api/v1/products/{id}/stock
 # Cliente 1
 curl -X POST http://localhost:3001/api/v1/customers \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "João Silva",
     "email": "joao.silva@email.com",
@@ -134,6 +170,7 @@ curl -X POST http://localhost:3001/api/v1/customers \
 # Cliente 2
 curl -X POST http://localhost:3001/api/v1/customers \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Maria Santos",
     "email": "maria.santos@email.com",
@@ -145,6 +182,7 @@ curl -X POST http://localhost:3001/api/v1/customers \
 # Cliente 3
 curl -X POST http://localhost:3001/api/v1/customers \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Pedro Oliveira",
     "email": "pedro.oliveira@email.com",
@@ -156,6 +194,7 @@ curl -X POST http://localhost:3001/api/v1/customers \
 # Cliente 4
 curl -X POST http://localhost:3001/api/v1/customers \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "name": "Ana Costa",
     "email": "ana.costa@email.com",
@@ -169,16 +208,20 @@ curl -X POST http://localhost:3001/api/v1/customers \
 
 ```bash
 # Listar todos os clientes
-curl -X GET "http://localhost:3001/api/v1/customers?page=1&limit=10"
+curl -X GET "http://localhost:3001/api/v1/customers?page=1&limit=10" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar cliente por ID
-curl -X GET http://localhost:3001/api/v1/customers/{id}
+curl -X GET http://localhost:3001/api/v1/customers/{id} \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar cliente por email
-curl -X GET http://localhost:3001/api/v1/customers/email/joao.silva@email.com
+curl -X GET http://localhost:3001/api/v1/customers/email/joao.silva@email.com \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar cliente por documento
-curl -X GET http://localhost:3001/api/v1/customers/document/12345678901
+curl -X GET http://localhost:3001/api/v1/customers/document/12345678901 \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 ```
 
 ## 📋 Pedidos
@@ -191,6 +234,7 @@ curl -X GET http://localhost:3001/api/v1/customers/document/12345678901
 # Pedido 1 - Substitua {customerId} e {productId} pelos IDs reais
 curl -X POST http://localhost:3001/api/v1/orders \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "customerId": "{customerId}",
     "items": [
@@ -210,6 +254,7 @@ curl -X POST http://localhost:3001/api/v1/orders \
 # Exemplo de pedido com dados fictícios (ajuste os IDs)
 curl -X POST http://localhost:3001/api/v1/orders \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "customerId": "clm1234567890",
     "items": [
@@ -226,20 +271,25 @@ curl -X POST http://localhost:3001/api/v1/orders \
 
 ```bash
 # Listar todos os pedidos
-curl -X GET "http://localhost:3001/api/v1/orders?page=1&limit=10"
+curl -X GET "http://localhost:3001/api/v1/orders?page=1&limit=10" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar pedido por ID
-curl -X GET http://localhost:3001/api/v1/orders/{id}
+curl -X GET http://localhost:3001/api/v1/orders/{id} \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar pedidos de um cliente
-curl -X GET http://localhost:3001/api/v1/orders/customer/{customerId}
+curl -X GET http://localhost:3001/api/v1/orders/customer/{customerId} \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Buscar pedidos por status
-curl -X GET http://localhost:3001/api/v1/orders/status/PENDING_PAYMENT
+curl -X GET http://localhost:3001/api/v1/orders/status/PENDING_PAYMENT \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123"
 
 # Atualizar status do pedido
 curl -X PATCH http://localhost:3001/api/v1/orders/{id}/status \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer minha_api_key_super_secreta_123" \
   -d '{
     "status": "CONFIRMED"
   }'
