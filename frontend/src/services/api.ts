@@ -9,14 +9,13 @@ import {
   PaginatedResponse,
   ApiResponse
 } from '../types';
+import { API_CONFIG, getDefaultHeaders } from '../config/api';
 
 // configuracao base da API
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  baseURL: API_CONFIG.BASE_URL,
+  timeout: API_CONFIG.TIMEOUT,
+  headers: getDefaultHeaders(),
 });
 
 // interceptor para tratamento de erros
