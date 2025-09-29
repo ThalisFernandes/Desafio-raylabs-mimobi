@@ -1,6 +1,13 @@
 // tipos para as entidades do sistema
 import { Decimal } from '@prisma/client/runtime/library';
 
+// enum para status do pedido
+export enum OrderStatus {
+  PENDING_PAYMENT = 'PENDING_PAYMENT',
+  CONFIRMED = 'CONFIRMED',
+  CANCELLED = 'CANCELLED'
+}
+
 export interface Customer {
   id: string;
   name: string;
