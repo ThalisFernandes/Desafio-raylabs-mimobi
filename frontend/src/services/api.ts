@@ -29,8 +29,8 @@ api.interceptors.response.use(
 
 // servicos para clientes
 export const customerService = {
-  async create(data: CreateCustomerData): Promise<Customer> {
-    const response = await api.post<Customer>('/customers', data);
+  async create(data: CreateCustomerData): Promise<ApiResponse<Customer>> {
+    const response = await api.post<ApiResponse<Customer>>('/customers', data);
     return response.data;
   },
 
