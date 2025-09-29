@@ -40,6 +40,7 @@ const CartPage: React.FC = () => {
     email: '',
     phone: '',
     document: '',
+    address: '',
   });
 
   const formatPrice = (price: number) => {
@@ -276,6 +277,31 @@ const CartPage: React.FC = () => {
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     disabled={loading}
                     required
+                  />
+                </Grid>
+                
+                <Grid item xs={12}>
+                  <TextField
+                    label="CPF/CNPJ"
+                    fullWidth
+                    value={customerData.document}
+                    onChange={(e) => handleInputChange('document', e.target.value)}
+                    disabled={loading}
+                    required
+                    placeholder="Digite apenas números (11 dígitos para CPF ou 14 para CNPJ)"
+                    helperText="Apenas números, sem pontos ou traços"
+                  />
+                </Grid>
+                
+                <Grid item xs={12}>
+                  <TextField
+                    label="Endereço"
+                    fullWidth
+                    value={customerData.address}
+                    onChange={(e) => handleInputChange('address', e.target.value)}
+                    disabled={loading}
+                    multiline
+                    rows={2}
                   />
                 </Grid>
               </Grid>
