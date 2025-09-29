@@ -18,6 +18,12 @@ export const createCustomerSchema = Joi.object({
     'string.email': 'Email deve ter um formato valido',
   }),
   document: documentValidation,
+  phone: Joi.string().optional().messages({
+    'string.base': 'Telefone deve ser uma string',
+  }),
+  address: Joi.string().optional().messages({
+    'string.base': 'Endereco deve ser uma string',
+  }),
 });
 
 // schemas de validacao para produtos
