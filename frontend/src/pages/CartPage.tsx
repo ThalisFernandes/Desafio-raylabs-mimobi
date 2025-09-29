@@ -86,29 +86,30 @@ const CartPage: React.FC = () => {
       // primeiro tenta buscar cliente existente por email
       try {
         const existingCustomer = await customerService.getByEmail(customerData.email);
-        if (existingCustomer) {
-          customerId = existingCustomer.id;
-        } else {
-          // se nao encontrou por email, tenta criar novo cliente
-          const customerResponse = await customerService.create(customerData);
-          
-          if (!customerResponse.data) {
-            throw new Error('Erro ao criar cliente: dados não retornados');
+        customerId = existingCustomer.id;
+      } catch (emailError: any) {
+        // se nao encontrou por email (404), tenta criar novo cliente
+        if (emailError.response?.status === 404) {
+          try {
+            const customerResponse = await customerService.create(customerData);
+            
+            if (!customerResponse.data) {
+              throw new Error('Erro ao criar cliente: dados não retornados');
+            }
+            
+            customerId = customerResponse.data.id;
+          } catch (createError: any) {
+            // se falhou ao criar, pode ser porque ja existe - tenta buscar novamente
+            if (createError.response?.status === 409) {
+              const existingCustomer = await customerService.getByEmail(customerData.email);
+              customerId = existingCustomer.id;
+            } else {
+              throw createError;
+            }
           }
-          
-          customerId = customerResponse.data.id;
-        }
-      } catch (createError: any) {
-        // se falhou ao criar, pode ser porque ja existe - tenta buscar novamente
-        if (createError.response?.status === 409) {
-          const existingCustomer = await customerService.getByEmail(customerData.email);
-          if (existingCustomer) {
-            customerId = existingCustomer.id;
-          } else {
-            throw createError;
-          }
         } else {
-          throw createError;
+          // se foi outro tipo de erro, propaga
+          throw emailError;
         }
       }
 
