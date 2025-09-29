@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { CustomerService } from '../services/customerService';
 import { validateData } from '../utils/validation';
-import { customerSchema, paginationSchema } from '../utils/validation';
+import { createCustomerSchema, paginationSchema } from '../utils/validation';
 import { logInfo } from '../config/logger';
 
 export class CustomerController {
@@ -14,7 +14,7 @@ export class CustomerController {
   // criar cliente
   createCustomer = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const validatedData = validateData(customerSchema, req.body);
+      const validatedData = validateData(createCustomerSchema, req.body);
       
       const customer = await this.customerService.createCustomer(validatedData);
       
