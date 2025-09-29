@@ -83,7 +83,7 @@ const CartPage: React.FC = () => {
     try {
       // criar cliente
       const customerResponse = await customerService.create(customerData);
-      const customerId = customerResponse.id;
+      const customerId = customerResponse.data.id;
 
       // preparar dados do pedido
       const orderData: CreateOrderData = {
