@@ -83,6 +83,11 @@ const CartPage: React.FC = () => {
     try {
       // criar cliente
       const customerResponse = await customerService.create(customerData);
+      
+      if (!customerResponse.data) {
+        throw new Error('Erro ao criar cliente: dados não retornados');
+      }
+      
       const customerId = customerResponse.data.id;
 
       // preparar dados do pedido
