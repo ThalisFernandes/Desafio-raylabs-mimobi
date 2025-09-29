@@ -94,6 +94,11 @@ export class MessagingService {
   // publicar evento de pedido criado
   async publishOrderCreated(event: OrderCreatedEvent): Promise<void> {
     try {
+      if (rabbitmq.isFallbackMode()) {
+        logInfo('Evento ORDER_CREATED simulado (modo fallback)', { orderId: event.orderId });
+        return;
+      }
+
       const channel = rabbitmq.getChannel();
       const message = Buffer.from(JSON.stringify(event));
 
@@ -107,13 +112,24 @@ export class MessagingService {
       logInfo('Evento ORDER_CREATED publicado', { orderId: event.orderId });
     } catch (error) {
       logError('Erro ao publicar evento ORDER_CREATED', error);
-      throw error;
+      // nao lanca erro em modo fallback para permitir que a aplicacao continue
+      if (!rabbitmq.isFallbackMode()) {
+        throw error;
+      }
     }
   }
 
   // publicar evento de pagamento processado
   async publishPaymentProcessed(event: PaymentProcessedEvent): Promise<void> {
     try {
+      if (rabbitmq.isFallbackMode()) {
+        logInfo('Evento PAYMENT_PROCESSED simulado (modo fallback)', { 
+          orderId: event.orderId, 
+          status: event.status 
+        });
+        return;
+      }
+
       const channel = rabbitmq.getChannel();
       const message = Buffer.from(JSON.stringify(event));
       
@@ -134,13 +150,23 @@ export class MessagingService {
       });
     } catch (error) {
       logError('Erro ao publicar evento PAYMENT_PROCESSED', error);
-      throw error;
+      if (!rabbitmq.isFallbackMode()) {
+        throw error;
+      }
     }
   }
 
   // publicar evento de estoque validado
   async publishStockValidated(event: StockValidatedEvent): Promise<void> {
     try {
+      if (rabbitmq.isFallbackMode()) {
+        logInfo('Evento STOCK_VALIDATED simulado (modo fallback)', { 
+          orderId: event.orderId, 
+          isValid: event.isValid 
+        });
+        return;
+      }
+
       const channel = rabbitmq.getChannel();
       const message = Buffer.from(JSON.stringify(event));
       
@@ -161,7 +187,9 @@ export class MessagingService {
       });
     } catch (error) {
       logError('Erro ao publicar evento STOCK_VALIDATED', error);
-      throw error;
+      if (!rabbitmq.isFallbackMode()) {
+        throw error;
+      }
     }
   }
 
@@ -192,6 +220,38 @@ export class MessagingService {
     } catch (error) {
       logError('Erro ao iniciar consumidor', { queue, error });
       throw error;
+    }
+  }
+
+  // configurar consumidores
+  async setupConsumers(): Promise<void> {
+    try {
+      if (rabbitmq.isFallbackMode()) {
+        logInfo('Consumidores simulados configurados (modo fallback)');
+        return;
+      }
+
+      const channel = rabbitmq.getChannel();
+
+      // consumir eventos de pedidos criados
+      await channel.consume(this.QUEUES.ORDER_CREATED, async (msg) => {
+        if (msg) {
+          const event: OrderCreatedEvent = JSON.parse(msg.content.toString());
+          logInfo('Processando evento ORDER_CREATED', { orderId: event.orderId });
+          
+          // aqui seria implementada a logica de processamento do pedido
+          // por exemplo: validar estoque, processar pagamento, etc.
+          
+          channel.ack(msg);
+        }
+      });
+
+      logInfo('Consumidores configurados com sucesso');
+    } catch (error) {
+      logError('Erro ao configurar consumidores', error);
+      if (!rabbitmq.isFallbackMode()) {
+        throw error;
+      }
     }
   }
 
