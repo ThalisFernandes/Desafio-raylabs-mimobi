@@ -42,18 +42,19 @@ export class OrderService {
       const order = await prisma.order.create({
         data: {
           customerId: data.customerId,
-          totalAmount,
+          total: totalAmount,
           status: OrderStatus.PENDING_PAYMENT,
-          items: {
+          orderItems: {
             create: data.items.map(item => ({
               productId: item.productId,
               quantity: item.quantity,
-              unitPrice: 0 // sera preenchido pelo trigger ou atualizacao posterior
+              price: 0, // sera preenchido pelo trigger ou atualizacao posterior
+              total: 0  // sera calculado depois
             }))
           }
         },
         include: {
-          items: {
+          orderItems: {
             include: {
               product: true
             }
@@ -63,10 +64,13 @@ export class OrderService {
       });
 
       // atualiza os precos unitarios dos itens
-      for (const item of order.items) {
+      for (const item of order.orderItems) {
         await prisma.orderItem.update({
           where: { id: item.id },
-          data: { unitPrice: item.product.price }
+          data: { 
+            price: item.product.price,
+            total: item.product.price * item.quantity
+          }
         });
       }
 
@@ -76,11 +80,11 @@ export class OrderService {
       const orderEvent: OrderCreatedEvent = {
         orderId: order.id,
         customerId: order.customerId,
-        totalAmount: order.totalAmount,
-        items: order.items.map(item => ({
+        totalAmount: order.total,
+        items: order.orderItems.map(item => ({
           productId: item.productId,
           quantity: item.quantity,
-          unitPrice: item.product.price
+          price: item.product.price
         })),
         createdAt: order.createdAt
       };
@@ -100,7 +104,7 @@ export class OrderService {
       const order = await prisma.order.findUnique({
         where: { id },
         include: {
-          items: {
+          orderItems: {
             include: {
               product: true
             }
@@ -130,7 +134,7 @@ export class OrderService {
           skip,
           take: limit,
           include: {
-            items: {
+            orderItems: {
               include: {
                 product: true
               }
@@ -168,7 +172,7 @@ export class OrderService {
         where: { id },
         data: { status },
         include: {
-          items: {
+          orderItems: {
             include: {
               product: true
             }
@@ -196,7 +200,7 @@ export class OrderService {
           skip,
           take: limit,
           include: {
-            items: {
+            orderItems: {
               include: {
                 product: true
               }
@@ -238,7 +242,7 @@ export class OrderService {
           skip,
           take: limit,
           include: {
-            items: {
+            orderItems: {
               include: {
                 product: true
               }
