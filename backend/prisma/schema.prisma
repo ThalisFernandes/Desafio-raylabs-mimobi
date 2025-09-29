@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -27,7 +27,7 @@ model Customer {
 model Product {
   id          String   @id @default(cuid())
   name        String
-  price       Decimal  @db.Decimal(10, 2)
+  price       Decimal
   stock       Int
   description String?
   createdAt   DateTime @default(now())
@@ -40,12 +40,12 @@ model Product {
 }
 
 model Order {
-  id         String      @id @default(cuid())
+  id         String   @id @default(cuid())
   customerId String
-  status     OrderStatus @default(PENDING_PAYMENT)
-  total      Decimal     @db.Decimal(10, 2)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  status     String   @default("PENDING_PAYMENT")
+  total      Decimal
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   // relacionamentos
   customer   Customer    @relation(fields: [customerId], references: [id])
@@ -59,8 +59,8 @@ model OrderItem {
   orderId   String
   productId String
   quantity  Int
-  price     Decimal @db.Decimal(10, 2) // preco no momento da compra
-  total     Decimal @db.Decimal(10, 2) // quantity * price
+  price     Decimal // preco no momento da compra
+  total     Decimal // quantity * price
 
   // relacionamentos
   order   Order   @relation(fields: [orderId], references: [id])
@@ -69,10 +69,5 @@ model OrderItem {
   @@map("order_items")
 }
 
-enum OrderStatus {
-  PENDING_PAYMENT
-  PAYMENT_CONFIRMED
-  PAYMENT_FAILED
-  CONFIRMED
-  CANCELLED
-}
+// Valores válidos para status do pedido:
+// PENDING_PAYMENT, PAYMENT_CONFIRMED, PAYMENT_FAILED, CONFIRMED, CANCELLED

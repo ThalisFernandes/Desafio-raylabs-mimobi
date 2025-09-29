@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderService } from '../services/orderService';
 import { validateData } from '../utils/validation';
-import { orderSchema, paginationSchema } from '../utils/validation';
+import { createOrderSchema, paginationSchema } from '../utils/validation';
 import { OrderStatus } from '../types';
 import { logInfo } from '../config/logger';
 
@@ -15,7 +15,7 @@ export class OrderController {
   // criar pedido
   createOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const validatedData = validateData(orderSchema, req.body);
+      const validatedData = validateData(createOrderSchema, req.body);
       
       const order = await this.orderService.createOrder(validatedData);
       

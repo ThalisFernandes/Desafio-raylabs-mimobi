@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductService } from '../services/productService';
 import { validateData } from '../utils/validation';
-import { productSchema, paginationSchema } from '../utils/validation';
+import { createProductSchema, paginationSchema } from '../utils/validation';
 import { logInfo } from '../config/logger';
 
 export class ProductController {
@@ -14,7 +14,7 @@ export class ProductController {
   // criar produto
   createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const validatedData = validateData(productSchema, req.body);
+      const validatedData = validateData(createProductSchema, req.body);
       
       const product = await this.productService.createProduct(validatedData);
       

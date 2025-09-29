@@ -11,6 +11,7 @@ const envSchema = Joi.object({
   DATABASE_URL: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
   JWT_EXPIRES_IN: Joi.string().default('24h'),
+  API_KEY: Joi.string().required(),
   RABBITMQ_URL: Joi.string().default('amqp://localhost:5672'),
   RABBITMQ_USER: Joi.string().default('guest'),
   RABBITMQ_PASSWORD: Joi.string().default('guest'),
@@ -36,6 +37,9 @@ export const config = {
     secret: envVars.JWT_SECRET,
     expiresIn: envVars.JWT_EXPIRES_IN,
   },
+  auth: {
+    apiKey: envVars.API_KEY,
+  },
   rabbitmq: {
     url: envVars.RABBITMQ_URL,
     user: envVars.RABBITMQ_USER,
@@ -47,4 +51,19 @@ export const config = {
   log: {
     level: envVars.LOG_LEVEL,
   },
+};
+
+// exporta tambem como env para compatibilidade
+export const env = {
+  NODE_ENV: envVars.NODE_ENV,
+  PORT: envVars.PORT,
+  DATABASE_URL: envVars.DATABASE_URL,
+  JWT_SECRET: envVars.JWT_SECRET,
+  JWT_EXPIRES_IN: envVars.JWT_EXPIRES_IN,
+  API_KEY: envVars.API_KEY,
+  RABBITMQ_URL: envVars.RABBITMQ_URL,
+  RABBITMQ_USER: envVars.RABBITMQ_USER,
+  RABBITMQ_PASSWORD: envVars.RABBITMQ_PASSWORD,
+  REDIS_URL: envVars.REDIS_URL,
+  LOG_LEVEL: envVars.LOG_LEVEL,
 };

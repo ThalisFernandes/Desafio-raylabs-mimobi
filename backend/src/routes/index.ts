@@ -2,15 +2,11 @@ import { Router } from 'express';
 import { customerRoutes } from './customerRoutes';
 import { productRoutes } from './productRoutes';
 import { orderRoutes } from './orderRoutes';
+import { authenticateApiKey } from '../middleware/auth';
 
 const router = Router();
 
-// registra todas as rotas da api
-router.use('/customers', customerRoutes);
-router.use('/products', productRoutes);
-router.use('/orders', orderRoutes);
-
-// rota de health check
+// rota de health check (sem autenticacao)
 router.get('/health', (req, res) => {
   res.json({
     success: true,
@@ -18,5 +14,10 @@ router.get('/health', (req, res) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// aplica middleware de autenticacao para todas as rotas protegidas
+router.use('/customers', authenticateApiKey, customerRoutes);
+router.use('/products', authenticateApiKey, productRoutes);
+router.use('/orders', authenticateApiKey, orderRoutes);
 
 export { router as apiRoutes };
