@@ -6,6 +6,7 @@ export class RabbitMQConnection {
   private connection: Connection | null = null;
   private channel: Channel | null = null;
   private isConnected = false;
+  private fallbackMode = false;
 
   // conectar ao rabbitmq
   async connect(): Promise<void> {
@@ -19,6 +20,7 @@ export class RabbitMQConnection {
       this.channel = await this.connection.createChannel();
       
       this.isConnected = true;
+      this.fallbackMode = false;
       
       logInfo('Conectado ao RabbitMQ com sucesso');
 
@@ -34,8 +36,10 @@ export class RabbitMQConnection {
       });
 
     } catch (error) {
-      logError('Erro ao conectar no RabbitMQ', error);
-      throw error;
+      logError('Erro ao conectar no RabbitMQ, ativando modo fallback', error);
+      this.fallbackMode = true;
+      this.isConnected = false;
+      // nao lanca erro para permitir que a aplicacao continue funcionando
     }
   }
 
@@ -62,6 +66,12 @@ export class RabbitMQConnection {
 
   // obter canal
   getChannel(): Channel {
+    if (this.fallbackMode) {
+      logInfo('RabbitMQ em modo fallback - operacao simulada');
+      // retorna um mock channel para evitar erros
+      return {} as Channel;
+    }
+    
     if (!this.channel || !this.isConnected) {
       throw new Error('RabbitMQ nao conectado');
     }
@@ -73,8 +83,18 @@ export class RabbitMQConnection {
     return this.isConnected;
   }
 
+  // verificar se esta em modo fallback
+  isFallbackMode(): boolean {
+    return this.fallbackMode;
+  }
+
   // declarar exchange
   async assertExchange(exchange: string, type: string = 'direct'): Promise<void> {
+    if (this.fallbackMode) {
+      logInfo(`Exchange ${exchange} simulado em modo fallback`, { type });
+      return;
+    }
+    
     const channel = this.getChannel();
     await channel.assertExchange(exchange, type, { durable: true });
     logInfo(`Exchange ${exchange} declarado`, { type });
@@ -82,6 +102,11 @@ export class RabbitMQConnection {
 
   // declarar fila
   async assertQueue(queue: string, options: any = {}): Promise<void> {
+    if (this.fallbackMode) {
+      logInfo(`Fila ${queue} simulada em modo fallback`);
+      return;
+    }
+    
     const channel = this.getChannel();
     const defaultOptions = { durable: true, ...options };
     await channel.assertQueue(queue, defaultOptions);
@@ -90,6 +115,11 @@ export class RabbitMQConnection {
 
   // bind fila ao exchange
   async bindQueue(queue: string, exchange: string, routingKey: string): Promise<void> {
+    if (this.fallbackMode) {
+      logInfo(`Fila ${queue} vinculada ao exchange ${exchange} (simulado)`, { routingKey });
+      return;
+    }
+    
     const channel = this.getChannel();
     await channel.bindQueue(queue, exchange, routingKey);
     logInfo(`Fila ${queue} vinculada ao exchange ${exchange}`, { routingKey });
