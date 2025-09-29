@@ -81,14 +81,36 @@ const CartPage: React.FC = () => {
     setError(null);
 
     try {
-      // criar cliente
-      const customerResponse = await customerService.create(customerData);
-      
-      if (!customerResponse.data) {
-        throw new Error('Erro ao criar cliente: dados não retornados');
+      let customerId: string;
+
+      // primeiro tenta buscar cliente existente por email
+      try {
+        const existingCustomer = await customerService.getByEmail(customerData.email);
+        if (existingCustomer) {
+          customerId = existingCustomer.id;
+        } else {
+          // se nao encontrou por email, tenta criar novo cliente
+          const customerResponse = await customerService.create(customerData);
+          
+          if (!customerResponse.data) {
+            throw new Error('Erro ao criar cliente: dados não retornados');
+          }
+          
+          customerId = customerResponse.data.id;
+        }
+      } catch (createError: any) {
+        // se falhou ao criar, pode ser porque ja existe - tenta buscar novamente
+        if (createError.response?.status === 409) {
+          const existingCustomer = await customerService.getByEmail(customerData.email);
+          if (existingCustomer) {
+            customerId = existingCustomer.id;
+          } else {
+            throw createError;
+          }
+        } else {
+          throw createError;
+        }
       }
-      
-      const customerId = customerResponse.data.id;
 
       // preparar dados do pedido
       const orderData: CreateOrderData = {
