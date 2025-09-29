@@ -36,6 +36,9 @@ export const createProductSchema = Joi.object({
   description: Joi.string().max(500).optional().messages({
     'string.max': 'Descricao deve ter no maximo 500 caracteres',
   }),
+  category: Joi.string().max(100).optional().messages({
+    'string.max': 'Categoria deve ter no maximo 100 caracteres',
+  }),
 });
 
 // schemas de validacao para pedidos

@@ -30,6 +30,7 @@ model Product {
   price       Decimal
   stock       Int
   description String?
+  category    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

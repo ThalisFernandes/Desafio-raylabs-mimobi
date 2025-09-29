@@ -51,6 +51,7 @@ export interface CreateProductData {
   price: number;
   stock: number;
   description?: string;
+  category?: string;
 }
 
 export interface CreateOrderData {

@@ -13,6 +13,7 @@ export class ProductService {
           price: data.price,
           stock: data.stock,
           description: data.description,
+          category: data.category,
         }
       });
 
