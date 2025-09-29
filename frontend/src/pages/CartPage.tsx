@@ -91,7 +91,6 @@ const CartPage: React.FC = () => {
         items: state.items.map(item => ({
           productId: item.product.id,
           quantity: item.quantity,
-          price: item.product.price,
         })),
       };
 
