@@ -74,7 +74,7 @@ cd ../frontend
 npm install
 ```
 
-## 🏃‍♂️ Executando o Projeto
+##  Executando o Projeto
 
 ### Backend (Porta 3000)
 ```bash
@@ -92,26 +92,26 @@ npm start
 
 O frontend estará disponível em: `http://localhost:3001`
 
-## 📱 Funcionalidades Implementadas
+##  Funcionalidades Implementadas
 
 ### Backend
-- ✅ CRUD completo de Produtos
-- ✅ CRUD completo de Clientes
-- ✅ Sistema de Pedidos com status
-- ✅ Arquitetura orientada a eventos
-- ✅ Validação de dados
-- ✅ Tratamento de erros
-- ✅ Logs estruturados
-- ✅ Testes unitários e de integração
+-  CRUD completo de Produtos
+-  CRUD completo de Clientes
+-  Sistema de Pedidos com status
+-  Arquitetura orientada a eventos
+-  Validação de dados
+-  Tratamento de erros
+-  Logs estruturados
+-  Testes unitários e de integração
 
 ### Frontend
-- ✅ Listagem de produtos com busca e filtros
-- ✅ Carrinho de compras funcional
-- ✅ Processo de checkout completo
-- ✅ Listagem de pedidos com status
-- ✅ Design responsivo com Material-UI
-- ✅ Navegação com React Router
-- ✅ Integração completa com API
+-  Listagem de produtos com busca e filtros
+-  Carrinho de compras funcional
+-  Processo de checkout completo
+-  Listagem de pedidos com status
+-  Design responsivo com Material-UI
+-  Navegação com React Router
+-  Integração completa com API
 
 ##  Fluxo da Aplicação
 
