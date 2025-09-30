@@ -2,7 +2,7 @@
 
 Sistema de e-commerce desenvolvido em Node.js com TypeScript, implementando arquitetura de microsserviços com comunicação assíncrona via RabbitMQ.
 
-## 🏗️ Arquitetura
+##  Arquitetura
 
 O sistema foi desenvolvido seguindo os princípios de arquitetura limpa e padrões de microsserviços:
 
@@ -26,7 +26,7 @@ O sistema foi desenvolvido seguindo os princípios de arquitetura limpa e padrõ
 6. Serviço de estoque valida e reserva produtos
 7. Status do pedido é atualizado conforme processamento
 
-## 🚀 Tecnologias
+##  Tecnologias
 
 - **Node.js** + **TypeScript**
 - **Express.js** - Framework web
@@ -36,7 +36,7 @@ O sistema foi desenvolvido seguindo os princípios de arquitetura limpa e padrõ
 - **Jest** - Framework de testes
 - **Docker** - Containerização
 
-## 📦 Instalação
+##  Instalação
 
 ### Pré-requisitos
 
@@ -108,7 +108,7 @@ npm run dev
 npm run dev:workers
 ```
 
-## 🔧 Scripts Disponíveis
+##  Scripts Disponíveis
 
 ```bash
 # Desenvolvimento
@@ -136,7 +136,7 @@ npm run lint            # Verifica código com ESLint
 npm run lint:fix        # Corrige problemas automaticamente
 ```
 
-## 📚 API Endpoints
+##  API Endpoints
 
 ### Clientes
 
@@ -175,7 +175,7 @@ GET    /api/v1/orders/status/:status        # Pedidos por status
 GET    /api/v1/health              # Status da aplicação
 ```
 
-## 📋 Exemplos de Uso
+##  Exemplos de Uso
 
 ### Criar Cliente
 
@@ -222,7 +222,7 @@ curl -X POST http://localhost:3000/api/v1/orders \
   }'
 ```
 
-## 🧪 Testes
+##  Testes
 
 O projeto inclui testes unitários e de integração abrangentes:
 
@@ -243,7 +243,7 @@ npm run test:watch
 - `tests/integration/` - Testes de integração da API
 - `tests/setup.ts` - Configuração global dos testes
 
-## 🔄 Sistema de Mensageria
+##  Sistema de Mensageria
 
 O sistema utiliza RabbitMQ para comunicação assíncrona entre serviços:
 
@@ -259,7 +259,7 @@ O sistema utiliza RabbitMQ para comunicação assíncrona entre serviços:
 - `PaymentProcessed` - Resultado do processamento de pagamento
 - `StockValidated` - Resultado da validação de estoque
 
-## 🏃‍♂️ Workers
+##  Workers
 
 Os workers processam eventos assíncronos em background:
 
@@ -267,7 +267,7 @@ Os workers processam eventos assíncronos em background:
 - **StockService** - Gerencia validação e controle de estoque
 - **MessagingService** - Coordena comunicação via RabbitMQ
 
-## 📊 Monitoramento
+##  Monitoramento
 
 ### Logs
 
@@ -290,7 +290,7 @@ Endpoint `/api/v1/health` retorna status da aplicação:
 }
 ```
 
-## 🚀 Deploy
+##  Deploy
 
 ### Variáveis de Ambiente (Produção)
 
@@ -317,18 +317,3 @@ npm start
 npm run start:workers
 ```
 
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📞 Suporte
-
-Para dúvidas ou suporte, entre em contato através dos issues do GitHub.
