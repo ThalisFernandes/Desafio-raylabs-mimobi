@@ -1,0 +1,150 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-01-27T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "req_checkout_test",
+      "parentId": "wrk_ecommerce",
+      "modified": 1706313600000,
+      "created": 1706313600000,
+      "url": "http://localhost:3001/api/v1/orders",
+      "name": "Criar Pedido - Checkout Test",
+      "description": "Teste de checkout com cliente existente",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"customerId\": \"cmg5hwqn20002k2vne5fq7xt2\",\n  \"items\": [\n    {\n      \"productId\": \"cmg5efx7g000428nsydj9pzcy\",\n      \"quantity\": 2\n    },\n    {\n      \"productId\": \"cmg5efl1d000328nsnb1cj8kc\",\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content_type"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer 2e9a0bc3-f3d3-414e-8443-fb059237efd5",
+          "id": "pair_auth"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1706313600000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_customer_by_email",
+      "parentId": "wrk_ecommerce",
+      "modified": 1706313600000,
+      "created": 1706313600000,
+      "url": "http://localhost:3001/api/v1/customers/email/testando@gmail.com",
+      "name": "Buscar Cliente por Email",
+      "description": "Busca cliente existente por email",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer 2e9a0bc3-f3d3-414e-8443-fb059237efd5",
+          "id": "pair_auth"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1706313500000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_customer",
+      "parentId": "wrk_ecommerce",
+      "modified": 1706313600000,
+      "created": 1706313600000,
+      "url": "http://localhost:3001/api/v1/customers",
+      "name": "Criar Novo Cliente",
+      "description": "Cria um novo cliente para teste",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"João Silva Teste\",\n  \"email\": \"joao.teste.insomnia@email.com\",\n  \"document\": \"12345678901\",\n  \"phone\": \"11999999999\",\n  \"address\": \"Rua das Flores, 123 - São Paulo, SP\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_content_type"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer 2e9a0bc3-f3d3-414e-8443-fb059237efd5",
+          "id": "pair_auth"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1706313400000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_products",
+      "parentId": "wrk_ecommerce",
+      "modified": 1706313600000,
+      "created": 1706313600000,
+      "url": "http://localhost:3001/api/v1/products?page=1&limit=10",
+      "name": "Listar Produtos",
+      "description": "Lista produtos disponíveis",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer 2e9a0bc3-f3d3-414e-8443-fb059237efd5",
+          "id": "pair_auth"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1706313300000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_ecommerce",
+      "parentId": null,
+      "modified": 1706313600000,
+      "created": 1706313600000,
+      "name": "E-commerce API - Desafio Mimobi",
+      "description": "Coleção de requisições para testar a API do e-commerce",
+      "scope": "collection",
+      "_type": "workspace"
+    }
+  ]
+}
