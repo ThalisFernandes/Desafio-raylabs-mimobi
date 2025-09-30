@@ -98,3 +98,4 @@ Thumbs.db
 # Prisma
 prisma/migrations/
 !prisma/migrations/.gitkeep
+prisma/dev.db
