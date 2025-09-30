@@ -8,15 +8,32 @@ import { MessagingService } from './messagingService';
 export class OrderService {
   private productService: ProductService;
   private messagingService: MessagingService;
+  private isInitialized = false;
 
   constructor() {
     this.productService = new ProductService();
     this.messagingService = new MessagingService();
   }
 
+  // inicializar o servico de mensageria se necessario
+  private async ensureInitialized(): Promise<void> {
+    if (!this.isInitialized) {
+      try {
+        await this.messagingService.initialize();
+        this.isInitialized = true;
+      } catch (error) {
+        logError('Erro ao inicializar mensageria no OrderService', error);
+        // continua sem lançar erro para permitir funcionamento em modo fallback
+      }
+    }
+  }
+
   // criar novo pedido
   async createOrder(data: CreateOrderDTO): Promise<Order> {
     try {
+      // garantir que o servico de mensageria esta inicializado
+      await this.ensureInitialized();
+
       // verifica se cliente existe
       const customer = await prisma.customer.findUnique({
         where: { id: data.customerId }
