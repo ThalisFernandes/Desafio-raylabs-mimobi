@@ -2,7 +2,7 @@
 
 Sistema completo de e-commerce desenvolvido com arquitetura orientada a eventos, utilizando Node.js/TypeScript no backend e React/TypeScript no frontend.
 
-## 🏗️ Arquitetura do Projeto
+##  Arquitetura do Projeto
 
 ```
 Desafio-raylabs-mimobi/
@@ -11,7 +11,7 @@ Desafio-raylabs-mimobi/
 └── README.md         # Este arquivo
 ```
 
-## 🚀 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 ### Backend
 - **Node.js** com TypeScript
@@ -30,13 +30,13 @@ Desafio-raylabs-mimobi/
 - **Axios** para requisições HTTP
 - **Context API** para gerenciamento de estado
 
-## 📋 Pré-requisitos
+##  Pré-requisitos
 
 - Node.js (versão 16 ou superior)
 - npm ou yarn
 - PostgreSQL (para produção) ou SQLite (para desenvolvimento)
 
-## 🔧 Instalação e Configuração
+##  Instalação e Configuração
 
 ### 1. Clone o repositório
 ```bash
@@ -113,14 +113,14 @@ O frontend estará disponível em: `http://localhost:3001`
 - ✅ Navegação com React Router
 - ✅ Integração completa com API
 
-## 🎯 Fluxo da Aplicação
+##  Fluxo da Aplicação
 
 1. **Produtos**: Visualizar catálogo com busca e filtros
 2. **Carrinho**: Adicionar produtos e gerenciar quantidades
 3. **Checkout**: Inserir dados do cliente e finalizar pedido
 4. **Pedidos**: Acompanhar status dos pedidos realizados
 
-## 🧪 Executando Testes
+##  Executando Testes
 
 ### Backend
 ```bash
@@ -134,7 +134,7 @@ cd frontend
 npm test
 ```
 
-## 📊 Endpoints da API
+##  Endpoints da API
 
 ### Produtos
 - `GET /api/products` - Listar produtos
@@ -159,7 +159,7 @@ npm test
 ### Health Check
 - `GET /api/health` - Status da API
 
-## 🔍 Estrutura do Banco de Dados
+##  Estrutura do Banco de Dados
 
 ### Tabelas Principais
 - **customers**: Dados dos clientes
@@ -167,7 +167,7 @@ npm test
 - **orders**: Pedidos realizados
 - **order_items**: Itens de cada pedido
 
-## 🎨 Interface do Usuário
+##  Interface do Usuário
 
 - **Design moderno** com Material-UI
 - **Responsivo** para desktop e mobile
@@ -175,7 +175,7 @@ npm test
 - **Feedback visual** para ações do usuário
 - **Loading states** e tratamento de erros
 
-## 🚀 Deploy
+##  Deploy
 
 ### Backend
 1. Configure as variáveis de ambiente para produção
@@ -186,7 +186,7 @@ npm test
 1. Execute o build: `npm run build`
 2. Sirva os arquivos estáticos da pasta `build/`
 
-## 📝 Observações Técnicas
+##  Observações Técnicas
 
 - O sistema utiliza **arquitetura orientada a eventos** no backend
 - **Validação robusta** de dados em todas as camadas
@@ -194,7 +194,3 @@ npm test
 - **Logs estruturados** para monitoramento
 - **Testes automatizados** para garantir qualidade
 - **TypeScript** em todo o projeto para type safety
-
-## 🤝 Contribuição
-
-Este projeto foi desenvolvido como parte de um desafio técnico, seguindo as melhores práticas de desenvolvimento e arquitetura de software.
